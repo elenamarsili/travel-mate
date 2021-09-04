@@ -27,7 +27,7 @@ app.use('/api', routes);
 
 /** Error Handling */
 
-app.use((req, res, next) => next(createError(404, 'Route not found')))
+app.use((req, res, next) => next(createError(404, 'Route not found')));
 
 app.use((error, req, res, next) => {
   if (error instanceof mongoose.Error.ValidationError) {

@@ -19,14 +19,11 @@ const userSchema = new Schema({
         type: String,
         required: 'Name is required'
     },
-    chats: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Chat',        
-       }],
     email: {
         type: String,
         required: 'Email is required',
-        match: [EMAIL_PATTERN, 'Email is invalid']
+        match: [EMAIL_PATTERN, 'Email is invalid'],
+        unique: true
     },
     password: {
         type: String,
@@ -44,40 +41,20 @@ const userSchema = new Schema({
         maxlength: 200
     },
     pronouns: {
-        type: [{
-            type: String,
-            enum: pronouns.map((p) => p.id)
-        }],
-        validate: {
-            validator: function(pronouns) {
-                return pronouns.length = 1;
-            },
-            message: 'Choose only one set of pronouns'
-          }
+        type: String,
+        enum: pronouns.map((p) => p.id)
     },
     languages: {
         type: [{
             type: String,
             enum: languages.map((l) => l)
         }],
-        validate: {
-            validator: function(languages) {
-                return languages.length >= 1;
-            },
-            message: 'Choose at least one language'
-          }
     },
     interests: {
         type: [{
             type: String,
             enum: interests.map((i) => i.id)
         }],
-        validate: {
-            validator: function(interests) {
-                return interests.length >= 2 && interests.length <=5;
-            },
-            message: 'Choose between 2 and 5 interests'
-          }
     },
     social: {
         google: {
@@ -96,9 +73,14 @@ const userSchema = new Schema({
         },
         coordinates: {
           type: [Number],
-          required: true
+          required: true,
+          default: [0, 0]
         }
-    }
+    },
+    chats: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chat',        
+       }]
 }, {
     timestamps: true,
     toJSON: {
@@ -156,6 +138,35 @@ userSchema.pre('save', function (next) {
 userSchema.methods.checkPassword = function (passwordToCheck) {
     return bcrypt.compare(passwordToCheck, this.password);
   };
+
+userSchema.methods.checkValidProfile = function (passwordToCheck) {
+    const errors = {}
+
+    if (this.languages?.length < 1) {
+        errors.languages = 'Select at least one language'
+    }
+    if (this.interests?.length <2 || this.interests?.length>5 ) {
+        errors.interests = 'Select between 2 and 5 interests'
+    }
+    if (!this.pronouns) {
+        errors.pronouns = 'Select you preferred pronouns'
+    }
+    if (!this.picture) {
+        errors.picture = 'Insert one picture'
+    }
+    if (!this.dateOfBirth) {
+        errors.dateOfBirth = 'Insert dateOfBirth'
+    }
+    if (!this.name) {
+        errors.name = 'Insert name'
+    }
+    if (!this.bio) {
+        errors.bio = 'Insert bio'
+    }
+
+
+    return errors
+};
   
 const User = mongoose.model('User', userSchema);
 module.exports = User;

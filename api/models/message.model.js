@@ -33,12 +33,6 @@ const messageSchema = new mongoose.Schema({
   }
 })
 
-userSchema.virtual("chat", {
-    ref: "Chat",
-    localField: "_id",
-    foreignField: "messages",
-  });
-
 const Message = mongoose.model('Message', messageSchema);
 
 module.exports = Message;

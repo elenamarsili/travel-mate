@@ -24,8 +24,9 @@ passport.use('google-auth', new GoogleStrategy({
   const googleId = profile.id;
   const name = profile.displayName;
   const email = profile.emails[0] ? profile.emails[0].value : undefined;
+  const picture = profile.photos[0].value
 
-  if (googleId && name && email) {
+  if (googleId && name && email && picture) {
     User.findOne({ $or: [
         { email},
         {'social.google': googleId }
@@ -35,7 +36,6 @@ passport.use('google-auth', new GoogleStrategy({
           user = new User({
             name,
             email,
-            avatar: profile.photos[0].value,
             password: mongoose.Types.ObjectId(),
             social: {
               google: googleId
