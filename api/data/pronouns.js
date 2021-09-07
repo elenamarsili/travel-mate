@@ -1,20 +1,8 @@
 module.exports = [
-    {
-        "id": "she/her",
-    },
-    {
-        "id": "he/him",
-    },
-    {
-        "id": "they/them",
-    },
-    {
-        "id": "ze/hir",
-    },
-    {
-        "id": "ze/zir",
-    },
-    {
-        "id": "xe/xem",
-    },
+    "she/her",
+    "he/him",
+    "they/them",
+    "ze/hir",
+    "ze/zir",
+    "xe/xem"
 ]

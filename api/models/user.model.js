@@ -30,7 +30,7 @@ const userSchema = new Schema({
         required: 'Password is required',
         match: [PASSWORD_PATTERN, 'Password is invalid']
     },
-    picture: {
+    avatar: {
         type: String,
     },
     dateOfBirth: {
@@ -42,7 +42,7 @@ const userSchema = new Schema({
     },
     pronouns: {
         type: String,
-        enum: pronouns.map((p) => p.id)
+        enum: pronouns.map((p) => p)
     },
     languages: {
         type: [{
@@ -53,7 +53,7 @@ const userSchema = new Schema({
     interests: {
         type: [{
             type: String,
-            enum: interests.map((i) => i.id)
+            enum: interests.map((i) => i)
         }],
     },
     social: {
@@ -80,7 +80,11 @@ const userSchema = new Schema({
     chats: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chat',        
-       }]
+       }],
+    isProfileCompleted: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true,
     toJSON: {
@@ -97,7 +101,7 @@ const userSchema = new Schema({
         transform: (doc, ret) => {
             ret.id = doc._id;
             delete ret._id;
-            delete ret._v;
+            delete ret.__v;
             delete ret.password;
             return ret
         }
@@ -125,6 +129,8 @@ userSchema.virtual("messages", {
   });
 
 userSchema.pre('save', function (next) {
+    this.isProfileCompleted = Object.keys(this.checkValidProfile()).length === 0;
+
     if (this.isModified('password')) {
         bcrypt.hash(this.password, 10).then((hash) => {
         this.password = hash;
@@ -139,20 +145,20 @@ userSchema.methods.checkPassword = function (passwordToCheck) {
     return bcrypt.compare(passwordToCheck, this.password);
   };
 
-userSchema.methods.checkValidProfile = function (passwordToCheck) {
+userSchema.methods.checkValidProfile = function() {
     const errors = {}
 
-    if (this.languages?.length < 1) {
+    if (!this.languages || this.languages?.length < 1) {
         errors.languages = 'Select at least one language'
     }
-    if (this.interests?.length <2 || this.interests?.length>5 ) {
+    if (!this.interests || this.interests?.length <2 || this.interests?.length>5 ) {
         errors.interests = 'Select between 2 and 5 interests'
     }
-    if (!this.pronouns) {
+    if (!this.pronouns || this.pronouns.length < 1) {
         errors.pronouns = 'Select you preferred pronouns'
     }
-    if (!this.picture) {
-        errors.picture = 'Insert one picture'
+    if (!this.avatar) {
+        errors.avatar = 'Insert one picture'
     }
     if (!this.dateOfBirth) {
         errors.dateOfBirth = 'Insert dateOfBirth'
