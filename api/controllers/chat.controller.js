@@ -5,39 +5,55 @@ const Message = require('../models/message.model');
 
 module.exports.list = (req, res, next) => {
 
-    Chat.find({users: { $in: req.user.id }})
-      .then((chats) => {
-        if(Object.keys(chats).length > 0){
-          res.json(chats)
-        } else {
-          next(createError(403, 'no chat available'))
-        }})
-      .catch(error => next(error));
-  }
+  Chat.find({users: { $in: req.user.id }})
+    .then((chats) => res.json(chats))
+    .catch(next)
+}
 
 module.exports.create = (req, res, next) => {
   const chatId = req.params.id
-  Chat.find({_id: chatId})
-    .then(() => {
-      const message = new Message({
-        chat: chatId,
-        sender: req.user.id,
-        content: req.body.content,
-        isRead: false        
-      })
-      message.save()
-        .then(m => res.json(m))
-        .catch(next)    
+  Chat.findOne({_id: chatId})
+    .then((chat) => {
+      if (chat) {
+        const message = new Message({
+          chat: chat._id,
+          sender: req.user.id,
+          content: req.body.content,
+          isRead: false        
+        })
+        return message.save()
+          .then(m => res.json(m))
+      } else {
+        next(createError(404, "chat not found"))
+      }
     })
     .catch(next)
 }
 
 module.exports.detail = (req, res, next) => {
-  Message.find({chat: req.params.id})
-    .then(messages => {
-      messages.map(message => {
-        message.isRead = true
-      })
-      return res.json(messages)})
+  const chatId = req.params.id
+  
+  Message.updateMany({chat: chatId}, {isRead: true})
+    .then(()=> {
+      return Chat.findOne({_id: chatId})
+        .populate({
+          path: "users",
+          select: "name avatar" 
+        })
+        .populate({
+          path: "messages",
+          populate: {
+            path: "sender",
+            select: "name"
+          }
+        })
+        .then((chat) => {
+          if(chat) {
+            res.json(chat)
+          } else {
+            next(createError(404, "chat not found"))
+          }
+        })
+    })
     .catch(next)
 }

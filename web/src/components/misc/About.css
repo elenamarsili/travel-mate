@@ -1,0 +1,45 @@
+.background {
+    height: 40vh;
+    background-image: url('./../../imgs/about.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 26px;
+    text-align: center;
+    color: #FFCB21;
+}
+
+.paragraph {
+    font-size: 18px;
+    line-height: 21px;
+    padding-left: 25px;
+    padding-right: 25px; 
+    color: #979797;
+    text-align: justify;
+    text-justify: inter-character;
+}
+
+.par-bold{
+    font-weight: bold;
+    color: #2176AE;
+}
+
+.btn-signIn{
+    background-color: white;
+    border: 1px solid #2176AE;
+    color: #2176AE;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-signUp{
+    background-color: #FFCB21;
+    border: 1px solid #FFCB21;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
