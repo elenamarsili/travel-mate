@@ -15,10 +15,16 @@ const app = express();
 
 /** Middlewares */
 app.use(logger('dev'));
-app.use(session);
+app.use((req, res, next) => {
+  req.userLocation = req.headers["x-location"] ? req.headers["x-location"].split(',').reverse() : undefined;
+  console.log("the position of the user is", req.userLocation)
+  next()
+})
+app.use(session.config);
 app.use(cors);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(session.updateLocation)
 app.use(express.json());
 
 /** Routes */

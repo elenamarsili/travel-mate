@@ -5,6 +5,32 @@ const http = axios.create({
   withCredentials: true
 })
 
+http.interceptors.request.use(
+  (request) => {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position)=> {
+            console.log(position)
+            resolve([position.coords.latitude, position.coords.longitude])
+          },
+          (error) => {
+            console.error(error)
+            resolve([])
+          }
+        )
+      } else {
+        resolve([])
+      }
+    })
+    .then((location) => {
+      request.headers["x-location"] = location.join()
+      return request
+    })
+  },
+  (error) => Promise.reject(error)
+)  
+
 http.interceptors.response.use(
   (response) => {
     // Any status code that lie within the range of 2xx cause this function to trigger

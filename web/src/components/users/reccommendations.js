@@ -1,15 +1,15 @@
-/* import { useState } from "react"
+import { useState } from "react"
 import { useHistory } from "react-router-dom"
 import service from "../../services/users-service"
 import './Login.css';
- */
-function UsersForm() {
+
+function Reccommendations() {
 
   return (
     <div className="container logged-out text-center">
-        <h1>Users Form</h1>
+            <h1>Reccommendations</h1>
     </div>
   )
 }
 
-export default UsersForm
+export default Reccommendations

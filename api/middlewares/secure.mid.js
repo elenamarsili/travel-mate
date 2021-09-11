@@ -5,7 +5,6 @@ module.exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect(process.env.WEB_URL);
     next(createError(401, 'user is not authenticated'))
   }
 };

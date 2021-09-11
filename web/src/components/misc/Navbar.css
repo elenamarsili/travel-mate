@@ -21,3 +21,11 @@
 nav .navbar-nav li a{
     color: #FFCB21 !important;
 }
+
+nav {
+    width: 100vw;
+}
+
+.nav-item {
+    display: inline-block;
+}

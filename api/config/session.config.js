@@ -20,4 +20,14 @@ const session = expressSession({
   })
 });
 
-module.exports = session;
+module.exports.config = session;
+module.exports.updateLocation = (req, res, next) => {
+  if (req.userLocation && req.user && req.user.location.coordinates !== req.userLocation) {
+    req.user.location.coordinates = req.userLocation;
+    req.user.save()
+      .then((user) => { next()})
+      .catch(next)
+  } else {
+    next()
+  }
+};

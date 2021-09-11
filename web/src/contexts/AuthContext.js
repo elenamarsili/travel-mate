@@ -8,8 +8,8 @@ export function AuthContextProvider({ children }) {
   useEffect(() => {
     const userId = localStorage.getItem('user');
     if (userId) {
-      service.getUser('me')
-      .then((user) => setUser(user))
+      service.profile()
+        .then((user) => setUser(user))
     }
   }, [])
 
@@ -26,7 +26,8 @@ export function AuthContextProvider({ children }) {
   const value = {
     user,
     login,
-    logout
+    logout,
+    setUser
   }
 
   return (

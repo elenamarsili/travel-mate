@@ -8,13 +8,17 @@ const mailer = require('../config/mailer.config');
 
 module.exports.register = (req, res, next) => {
     const data = { name, email, password } = req.body
-  
+    data.location = {
+      type: "Point",
+      coordinates: req.userLocation || [0,0]
+    }
+    console.log(req.body)
     User.findOne({ email: req.body.email})
       .then(user => {
         if (user) {
           next(createError(400, { errors: { email: { message: 'This user already exists'} } }))
         } else {
-          return User.create(req.body)
+          return User.create(data)
             .then(user => {
             mailer.sendValidationEmail(user);
             res.status(201).json(user)})
@@ -41,7 +45,7 @@ module.exports.login = (req, res, next) => {
       if (error) {
         next(error);
       } else if (!user) {
-        next(createError(400, { errors: validations }))
+        next(createError(400, validations))
       } else if (user.active === false) {
         next(createError(403, 'user is not active'))
       } else {
@@ -72,12 +76,11 @@ module.exports.doLoginWithGoogle = (req, res, next) => {
         if (error) {
           next(error)
         } else {
-          res.redirect('http://localhost:3001')
+          res.redirect('http://localhost:3000/')
         }
       })
     }
   })
-  
   passportController(req, res, next);
 }
 
