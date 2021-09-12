@@ -1,0 +1,38 @@
+.update-title{
+    font-size: 24px;
+    font-weight: 700;
+    color: #2176AE;
+}
+
+.form-check-label{
+    font-size: 14px;
+    font-weight: 400;
+    color: #2176AE;
+}
+
+.update-btn{
+    background-color: #FFCB21;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    width: 50%;
+}
+.update-btn:disabled,
+.update-btn[disabled]{
+  border: 1px solid #828282;
+  background-color: #828282;
+  color: white;
+}
+.delete-btn{
+    background-color: #2176AE;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    width: 50%;
+}
+
+.btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

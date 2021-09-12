@@ -1,6 +1,6 @@
 import { Switch, Route } from 'react-router-dom';
-import { useContext, useState } from "react"
-import { AuthContext } from "./contexts/AuthContext"
+/* import { useContext, useState } from "react"
+import { AuthContext } from "./contexts/AuthContext" */
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ChatDetail from './components/chats/chats-detail/ChatsDetail';
