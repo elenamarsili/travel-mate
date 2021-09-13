@@ -55,6 +55,7 @@ const validations = {
 
 function UserForm(){
   const auth = useContext(AuthContext)
+  const history = useHistory()
 
   const [data, setData] = useState({
     avatar: '',
@@ -132,32 +133,22 @@ const handleSubmit = (event) => {
     event.preventDefault();
 
     if (isFormValid()) {
-      service.profileUpdate(data)
-        .then(user => {
-          console.log(user)
+      service.profileUpdate({
+        avatar: event.target.avatar.value,
+        pronouns: event.target.pronouns.value,
+        dateOfBirth: event.target.dateOfBirth.value,
+        bio: event.target.bio.value,
+        languages: event.target.languages.value,
+        interests: event.target.interests.value,
+      })
+        .then(() => {
+          history.push("/profile")
         })
         .catch(error => {
           const errorFromApi = error.response?.data || error;
-          })
+        })
     }
 };
-
-  function handleClick(event) {
-    const modal = document.querySelector(".modal")
-    const okBtn = document.querySelector(".okBtn")
-    modal.style.display = "block";
-    okBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    })
-  }
-
-  function handleDelete(){
- /*    profileId = auth.user._id
-    service.profileDelete(profileId)
-      .then()
-      .catch() */
-  }
-
 
     return (
         <div className="container">
@@ -213,24 +204,12 @@ const handleSubmit = (event) => {
               {error.interests.validations && error.interests.touched && <div className="invalid-feedback">{error.interests.validations}</div>}
             </div>
 
-            <div className="row justify-content-center">
+            <div className="mt-4 row justify-content-center">
               <div className="text-center">
               <button className="btn rounded-pill update-btn" disabled={!isFormValid()}>Update Profile</button>
               </div>
             </div>
-          </form>
-
-          <div className="text-center px-4">
-               <a className="mt-2 btn rounded-pill delete-btn text-center" onClick={(event) => handleClick(event)}>Delete Profile</a> 
-          </div>
-
-          <div className="modal">
-            <div className="modal_content text-center">
-              <p>Are you sure you want to delete your profile?</p>
-              <a href="/profile/update" className="mt-2 btn rounded-pill text-center okBtn w-80" onClick={handleDelete()}>Confirm Delete</a> 
-            </div>
-          </div>
-              
+          </form>              
         </div>
   );
 }

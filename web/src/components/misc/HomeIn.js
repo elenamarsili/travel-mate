@@ -15,21 +15,7 @@ function HomeIn() {
                 setIsLoading(false);
             })
     }, [])
-    
-    
-/*     function fetchRecs() {
-    service.reccommendations()
-        .then(reccommendations => setState({ reccommendations, isLoading: false }))
-        .catch(error => {
-            setState({ isLoading: false })
-            console.error(error)
-        });
-    }
 
-    useEffect(() => {
-        fetchRecs();
-     }, []);
- */
     return (
   
             <>

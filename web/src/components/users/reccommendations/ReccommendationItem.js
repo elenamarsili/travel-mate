@@ -1,16 +1,26 @@
-import { useContext } from "react"
+import { useContext, useHistory } from "react"
 import { AuthContext } from "../../../contexts/AuthContext"
 import pronouns from "../../../data/pronouns";
 import service from "../../../services/users-service"
 import './ReccommendationItem.css';
 
-function ReccommendationItem({id, name, dateOfBirth, avatar, interests, languages, bio}) {
+function ReccommendationItem({name, dateOfBirth, avatar, interests, languages, bio}) {
+    const history = useHistory()
+    const auth = useContext(AuthContext)
 
-    function handleLike() {
-        /*        service.like()
-                   .then(() => next()) */
-           }
-           // what to put in the "then" of this function? I want to re-render home with new results
+    /* const handleLike = (req, res, next) => {
+        service.like({
+                liker: auth.id,
+                liked: req.params.id
+            })
+            .then(() => {
+                history.push("/")
+            })
+            .catch(error => next(error))
+    } */
+    //como cojo el params id de esa reccomendacion
+
+
     function getAge(dateString) {
         var today = new Date();
         var birthDate = new Date(dateOfBirth);
@@ -30,7 +40,7 @@ function ReccommendationItem({id, name, dateOfBirth, avatar, interests, language
             <h2 className="px-3 profile-subtitle">{interests.join(", ")}</h2>
             <p className="px-3 profile-text">{bio}</p>
             <div className="d-flex btns pt-3">
-                <a aria-current="page" onClick={handleLike} className="btn btn-yellow rounded-circle te"><i className="fa fa-heart-o" aria-hidden="true"></i></a>
+                <a aria-current="page" onClick={handleLike()} className="btn btn-yellow rounded-circle te"><i className="fa fa-heart-o" aria-hidden="true"></i></a>
                 <a aria-current="page" href="" className="btn btn-blue rounded-circle"><i className="fa fa-times" aria-hidden="true"></i></a> 
                 {/* //what to put in the href???? */}
             </div>
