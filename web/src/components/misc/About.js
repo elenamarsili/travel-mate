@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './About.css';
 
 function About() {
@@ -10,8 +11,8 @@ function About() {
             <p className="paragraph">This way is super-easy to make new friends and enjoy your travels much more!</p>
             <p className="paragraph par-bold">Join us and discover an all new way of making travle friends!</p>
             <div className="container text-center">
-                <a className="btn btn-signIn btn-primary rounded-pill" href="/login">Sign In</a>
-                <a className="btn btn-signUp btn-primary rounded-pill" href="/register">Sign Up</a>
+                <Link className="btn btn-signIn btn-primary rounded-pill" to="/login">Sign In</Link>
+                <Link className="btn btn-signUp btn-primary rounded-pill" to="/register">Sign Up</Link>
             </div>
         </div>
     )

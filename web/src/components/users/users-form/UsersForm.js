@@ -7,7 +7,6 @@ import languages from "../../../data/languages"
 import interests from "../../../data/interests"
 import './UsersForm.css';
 
-let isFormValid = false; 
 
 const validations = {
   pronouns: (value) => {
@@ -19,7 +18,6 @@ const validations = {
   },
   languages: (value) => {
     let message;
-    console.log(value)
     if (!value && !value.length) {
       message = 'Select at least one language';
     }
@@ -27,7 +25,6 @@ const validations = {
   },
   interests: (value) => {
     let message;
-    console.log(value)
     if (!value && !value.length) {
       message = 'Select between 2 and 5 interests';
     }
@@ -115,38 +112,26 @@ function UserForm(){
     return values
   }
 
-  function handleInputChangeForInterests(event) {
-
-  }
-
   function handleInputChange(ev) {
     const inputName = ev.target.name;
     const value = inputName === "languages" || inputName === "interests" ? handleChangeForSelect(ev) : ev.target.value;
     error[inputName].validations = validations[inputName](ev.target.value);
 
-    setData((data) => ({
-      data: {
+    setData({
         ...data,
         [inputName]: value,
-      }
-    }));
+    });
     setError({
       ...error
     }) ;
-
-    checkIsFormValid();
   };
 
+const isFormValid = () => !Object.keys(error).some(key => error[key].validations !== undefined);
 
-  function checkIsFormValid() {
-    isFormValid = !Object.keys(error).some(key => error[key].validations !== undefined);
-  }
-
-  function handleSubmit(event) {
+const handleSubmit = (event) => {
     event.preventDefault();
 
     if (isFormValid()) {
-  
       service.profileUpdate(data)
         .then(user => {
           console.log(user)
@@ -155,11 +140,28 @@ function UserForm(){
           const errorFromApi = error.response?.data || error;
           })
     }
-  };
+};
+
+  function handleClick(event) {
+    const modal = document.querySelector(".modal")
+    const okBtn = document.querySelector(".okBtn")
+    modal.style.display = "block";
+    okBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    })
+  }
+
+  function handleDelete(){
+ /*    profileId = auth.user._id
+    service.profileDelete(profileId)
+      .then()
+      .catch() */
+  }
+
 
     return (
         <div className="container">
-          <form className="mt-5 pt-2 px-4" onSubmit={(event) => handleSubmit(event)}>
+          <form className="px-4" onSubmit={(event) => handleSubmit(event)}>
             <h1 className="update-title text-center">Update Profile</h1>
             <div className="form-group">
               <label className="form-check-label" htmlFor="avatar">My Profile Picture</label>
@@ -170,6 +172,7 @@ function UserForm(){
             <div className="mb-1">
               <label className="form-check-label" htmlFor="pronouns">My Preferred Pronouns</label>
               <select className="form-select" aria-label="preferred pronouns" id="pronouns" name="pronouns" onChange={(ev) => handleInputChange(ev)} onBlur={(ev) => handleBlur(ev)}>
+                <option key="they/them" value="they/them">Choose your preferred pronouns</option>
                 { pronouns.map(pron => {
                 return <option key={pron} value={pron}>{pron}</option>
                 })}
@@ -210,35 +213,26 @@ function UserForm(){
               {error.interests.validations && error.interests.touched && <div className="invalid-feedback">{error.interests.validations}</div>}
             </div>
 
-            {/* <div className="mb-1">
-              <label className="form-check-label" htmlFor="interests">My interests - choose between 2 and 5</label>
-                { interests.map((interest) => {
-                return (
-                  <div key={interest} className="form-check form-check-inline">
-                    <input className="form-check-input"  name={interest} onChange={(event) => handleInputChangeForInterests(event)} type="checkbox" value={interest} id={interest} />
-                    <label className="form-check-label" htmlFor={interest}>{interest}</label>
-                  </div>
-                )
-                })}
-              {error.interests.validations && error.interests.touched && <div className="invalid-feedback">{error.interests.validations}</div>}
-            </div> */}
-
             <div className="row justify-content-center">
               <div className="text-center">
-                <button className="btn rounded-pill update-btn" disabled={!isFormValid}>Update Profile</button>
+              <button className="btn rounded-pill update-btn" disabled={!isFormValid()}>Update Profile</button>
               </div>
             </div>
           </form>
 
           <div className="text-center px-4">
-               <button className="mt-2 btn rounded-pill delete-btn text-center">Delete Profile</button> 
+               <a className="mt-2 btn rounded-pill delete-btn text-center" onClick={(event) => handleClick(event)}>Delete Profile</a> 
+          </div>
+
+          <div className="modal">
+            <div className="modal_content text-center">
+              <p>Are you sure you want to delete your profile?</p>
+              <a href="/profile/update" className="mt-2 btn rounded-pill text-center okBtn w-80" onClick={handleDelete()}>Confirm Delete</a> 
+            </div>
           </div>
               
         </div>
   );
 }
-
-
-
 
 export default UserForm;

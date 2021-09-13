@@ -1,0 +1,53 @@
+.profile-picture {
+    height: 50vh;
+    width: 100vw;
+}
+
+.profile-title{
+    color: #2176AE;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.profile-subtitle{
+    color: #FFCB21;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.profile-text{
+    color: #828282;
+    font-size: 18px;
+}
+
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.btn-yellow{
+    background-color: #FFCB21;
+    padding-top:11px;
+    width: 50px;
+    height: 50px;
+}
+
+.fa-heart-o{
+    color: white;
+    font-size: 24px;
+}
+
+.btn-blue{
+    background-color: #2176AE;
+    padding-top:11px;
+    width: 50px;
+    height: 50px;
+}
+
+.fa-times{
+    color: white;
+    font-size: 24px;
+}

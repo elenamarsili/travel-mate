@@ -36,3 +36,28 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 83vh;
+    left: 20vw;
+    width: 60vw;
+    height: 17vh;
+    z-index: 1;
+    background-color: #828282;
+    border: 1p solid #2176AE;
+    border-radius: 5px;
+  }
+
+  .modal_content {
+    background-color: white;
+    position: absolute;
+  }
+
+  .okBtn {
+    background-color: #2176AE;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+  }
