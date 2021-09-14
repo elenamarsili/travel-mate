@@ -76,11 +76,12 @@ module.exports.doLoginWithGoogle = (req, res, next) => {
         if (error) {
           next(error)
         } else {
-          res.redirect('http://localhost:3000/')
+          res.redirect(`${process.env.REACT_APP_URL}/google/cb`)
         }
       })
     }
   })
+  
   passportController(req, res, next);
 }
 

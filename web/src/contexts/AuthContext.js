@@ -9,7 +9,11 @@ export function AuthContextProvider({ children }) {
     const userId = localStorage.getItem('user');
     if (userId) {
       service.profile()
-        .then((user) => setUser(user))
+        .then((user) => {
+          if (JSON.stringify(user) !== JSON.stringify(userId)) {
+          setUser(user)
+          }
+        })
     }
   }, [])
 

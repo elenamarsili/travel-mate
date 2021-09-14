@@ -10,21 +10,11 @@ const profileUpdate = (avatar, pronouns, dateOfBirth, interests, languages, bio)
 const profileDelete = () => http.delete('/profile')
 const reccommendations = () => http.get('/')
 const like = (liker, liked) => http.post(`/user/:id/like`, {liker, liked})
-const chats = () => http.get(`/chats`)
+const chats = (id, users, messages) => http.get(`/chats`, { id, users, messages})
 const messageCreate = (message, chatId) => http.post(`/chats/${chatId}`, message)
 const messageList = (chatId) => http.get(`/chats/${chatId}`)
 
 
-const createUser = (user) => {
-  const data = new FormData()
-
-  data.append('name', user.name)
-  data.append('email', user.email)
-  data.append('password', user.password)
-  data.append('avatar', user.avatar)
-
-  return http.post('/users', data)
-}
 
 const service = {
   register,
@@ -39,7 +29,6 @@ const service = {
   like,
   chats,
   messageCreate,
-  messageList,
-  createUser
+  messageList
 };
 export default service;

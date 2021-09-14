@@ -53,12 +53,14 @@ app.use((error, req, res, next) => {
   if (error.errors) {
     data.errors = Object.keys(error.errors)
       .reduce((errors, key) => {
-        errors[key] = error.errors[key]?.message || error.errors[key];
+        errors[key] = error.errors[key].message || error.errors[key];
         return errors;
       }, {});
   }
   res.status(error.status).json(data);
 });
+
+
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.info(`Application running at port ${port}`));

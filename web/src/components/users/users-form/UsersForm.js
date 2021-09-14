@@ -145,8 +145,23 @@ const handleSubmit = (event) => {
           history.push("/profile")
         })
         .catch(error => {
-          const errorFromApi = error.response?.data || error;
+          let { message, errors } = error.response?.data || error;
+          console.error(message)
+          console.error(errors)
+          if (errors) {
+              errors = Object.keys(errors).reduce((errorsAcc, error)=> {
+              errorsAcc[error] = {
+              validations: errors[error],
+              touched: true
+            }
+            return errorsAcc
+          }, {})
+          setError(errors)
+        } else {
+            setError({name: {validations: "name is required", touched:true}});
+        }
         })
+        
     }
 };
 
@@ -179,7 +194,7 @@ const handleSubmit = (event) => {
 
             <div className="mb-1">
               <label className="form-check-label" htmlFor="bio">About me</label>
-              <textarea name="bio" type="text-area" className={`form-control ${error.bio.validations && error.bio.touched ? 'is-invalid' : ''}`} rows="2" value={data.bio}
+              <textarea name="bio" type="text-area" className={`form-control ${error.bio.validations && error.bio.touched ? 'is-invalid' : ''}`} rows="2" maxLength="200" value={data.bio}
               onChange={(event) => handleInputChange(event)} onBlur={(event) => handleBlur(event)} />
               {error.bio.validations && error.bio.touched && <div className="invalid-feedback">{error.bio.validations}</div>}
             </div>

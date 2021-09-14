@@ -1,5 +1,5 @@
 .profile-picture {
-    height: 50vh;
+    height: 45vh;
     width: 100vw;
 }
 
@@ -26,6 +26,7 @@
     justify-content: space-between;
     margin-left: 30%;
     margin-right: 30%;
+    margin-bottom: 5vh;
 }
 
 .btn-yellow{
