@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { Link } from "react-router-dom"
 import { AuthContext } from "../../../contexts/AuthContext"
 import './UsersDetail.css';
 
@@ -24,7 +25,7 @@ function UsersDetail() {
       <h2 className="px-3 profile-subtitle">I like: {auth.user?.interests.join(", ")}</h2>
       <p className="px-3 profile-text">{auth.user?.bio}</p>
       <div className="text-center px-3">
-        <a href="/profile/update" className="mt-2 btn rounded-pill update-btn text-center">Update Profile</a> 
+        <Link to="/profile/update" className="btn rounded-pill update-btn text-center">Update Profile</Link> 
       </div>
     </div>
     )

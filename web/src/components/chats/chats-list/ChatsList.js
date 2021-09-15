@@ -1,36 +1,44 @@
-import { useState, useEffect } from "react"
+import { useCallback, useEffect, useState } from 'react';
 import service from "../../../services/users-service"
 import ChatItem from "../chat-items/ChatItem";
+import './ChatLIst.css';
 
 function ChatsList() {
 
-    const [chats, setChats] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    
+  const [state, setState] = useState({ chats: [], isLoading: true});
+  const [fetch, handleFetch] = useState(false);
+  
     useEffect(() => {
-        service.chats()
-            .then((chats) => {
-                setChats(chats);
-                setIsLoading(false);
-            })
-    }, [])
+      let isMounted = true;
+      service.chats()
+        .then(chats => {
+          if (isMounted) {
+            setState({ chats, isLoading: false });
+          }
+        })
+        .catch(error => {
+          setState({ isLoading: false });
+          console.error(error);
+        });
+      return () => isMounted = false
+    }, [fetch]);
+
+    const { chats, isLoading } = state;
 
     return (
-  
+            chats &&
             <>
                 {isLoading ? (<i className="fa fa-gear fa-spin"></i>) : (
-                    <div className="container">
-                      <div className="row mb-2">
-                        <div className="col">
-                          <ul className="list-group">
+                    <div className="row mb-2">
+                      <div className="col">
+                        <ul className="list-group">
                           {chats.map(chat => (
                               <li key={chat.id} className="list-group-item list-group-item-action">
                                 <ChatItem {...chat}/>
                               </li>
                           ))}
-                          </ul>
-                        </div>
-                      </div> 
+                        </ul>
+                      </div>
                     </div>
                 )}
             </>   

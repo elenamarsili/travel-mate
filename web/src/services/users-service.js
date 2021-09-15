@@ -6,15 +6,23 @@ const logout = () => http.post('/logout')
 const loginWithGoogle = () => http.get('/authenticate/google')
 const activate = (id) => http.get(`/users/${id}/activate`, {id})
 const profile = () => http.get('/profile')
-const profileUpdate = (avatar, pronouns, dateOfBirth, interests, languages, bio) => http.patch('/profile/update', {avatar, pronouns, dateOfBirth, interests, languages, bio})
 const profileDelete = () => http.delete('/profile')
 const reccommendations = () => http.get('/')
 const like = (liker, liked) => http.post(`/user/:id/like`, {liker, liked})
 const chats = (id, users, messages) => http.get(`/chats`, { id, users, messages})
 const messageCreate = (message, chatId) => http.post(`/chats/${chatId}`, message)
 const messageList = (chatId) => http.get(`/chats/${chatId}`)
+const profileUpdate = (user) => {
+  const data = new FormData()
+    data.append("avatar", user.avatar[0])
+    data.append("bio", user.bio)
+    data.append("pronouns", user.pronouns)
+    data.append("dateOfBirth", user.dateOfBirth)
+    data.append("interests", user.interests)
+    data.append("languages", user.languages)
 
-
+    return http.patch('/profile/update', data)
+}
 
 const service = {
   register,
