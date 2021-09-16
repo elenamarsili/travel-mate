@@ -6,24 +6,23 @@ const logout = () => http.post('/logout')
 const loginWithGoogle = () => http.get('/authenticate/google')
 const activate = (id) => http.get(`/users/${id}/activate`, {id})
 const profile = () => http.get('/profile')
-const profileUpdate = (data) => http.patch('/profile/update', data)
-const profileDelete = (id) => http.delete('/profile', {id})
-const reccommendations = (data) => http.get('/', data)
-const like = (id) => http.post(`/user/${id}/like`)
-const chats = () => http.get(`/chats`)
+const profileDelete = () => http.delete('/profile')
+const reccommendations = () => http.get('/')
+const like = (userId) => http.post(`/users/${userId}/like`)
+const chats = (id, users, messages) => http.get(`/chats`, { id, users, messages})
 const messageCreate = (message, chatId) => http.post(`/chats/${chatId}`, message)
-const messageList = (chatId) => http.get(`/chats/${chatId}`)
-
-
-const createUser = (user) => {
+const messageList = (id) => http.get(`/chats/${id}`)
+const profileUpdate = (user) => {
+  console.log(user.avatar)
   const data = new FormData()
+    data.append("avatar", user.avatar)
+    data.append("bio", user.bio)
+    data.append("pronouns", user.pronouns)
+    data.append("dateOfBirth", user.dateOfBirth)
+    data.append("interests", user.interests)
+    data.append("languages", user.languages)
 
-  data.append('name', user.name)
-  data.append('email', user.email)
-  data.append('password', user.password)
-  data.append('avatar', user.avatar)
-
-  return http.post('/users', data)
+    return http.patch('/profile', data)
 }
 
 const service = {
@@ -39,7 +38,6 @@ const service = {
   like,
   chats,
   messageCreate,
-  messageList,
-  createUser
+  messageList
 };
 export default service;

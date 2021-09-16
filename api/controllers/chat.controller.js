@@ -6,6 +6,17 @@ const Message = require('../models/message.model');
 module.exports.list = (req, res, next) => {
 
   Chat.find({users: { $in: req.user.id }})
+    .populate({
+      path: "users",
+      select: "name avatar" 
+    })
+    .populate({
+      path: "messages",
+      populate: {
+        path: "sender",
+        select: "name"
+      }
+    })
     .then((chats) => res.json(chats))
     .catch(next)
 }
@@ -44,7 +55,7 @@ module.exports.detail = (req, res, next) => {
           path: "messages",
           populate: {
             path: "sender",
-            select: "name"
+            select: "name content"
           }
         })
         .then((chat) => {

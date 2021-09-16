@@ -76,11 +76,12 @@ module.exports.doLoginWithGoogle = (req, res, next) => {
         if (error) {
           next(error)
         } else {
-          res.redirect('http://localhost:3000/')
+          res.redirect(`${process.env.REACT_APP_URL}/google/cb`)
         }
       })
     }
   })
+  
   passportController(req, res, next);
 }
 
@@ -91,7 +92,6 @@ module.exports.logout = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
   const editedUser = {
-    name,
     avatar,
     dateOfBirth,
     bio,
@@ -103,6 +103,14 @@ module.exports.update = (req, res, next) => {
 
   if (req.file) {
     editedUser.avatar = req.file.path
+  }
+
+  if(editedUser.languages && !Array.isArray(editedUser.languges)) {
+    editedUser.languages = editedUser.languages.split(",")
+  }
+
+  if(editedUser.interests && !Array.isArray(editedUser.interests)) {
+    editedUser.interests = editedUser.interests.split(",")
   }
 
   Object.assign(req.user, editedUser)

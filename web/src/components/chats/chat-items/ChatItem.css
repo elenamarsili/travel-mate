@@ -1,0 +1,33 @@
+.ChatItem {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+}
+
+.ChatAvatar {
+  border: 2px solid #2176AE;
+}
+
+.ChatText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ChatName {
+  color:#2176AE;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ChatDate {
+  text-align: right;
+}
+
+.ChatTitle {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  justify-content: space-around;
+}

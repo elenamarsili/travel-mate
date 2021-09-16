@@ -25,7 +25,3 @@ nav .navbar-nav li a{
 nav {
     width: 100vw;
 }
-
-.nav-item {
-    display: inline-block;
-}

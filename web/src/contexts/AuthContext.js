@@ -3,18 +3,22 @@ import service from '../services/users-service'
 export const AuthContext = React.createContext()
 
 export function AuthContextProvider({ children }) {
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : undefined)
 
   useEffect(() => {
-    const userId = localStorage.getItem('user');
-    if (userId) {
+    const storeUser = localStorage.getItem('user');
+    if (storeUser) {
       service.profile()
-        .then((user) => setUser(user))
+        .then((user) => {
+          if (JSON.stringify(user) !== JSON.stringify(storeUser)) {
+          setUser(user)
+          }
+        })
     }
   }, [])
 
   function login(user) {
-    localStorage.setItem('user', user.id);
+    localStorage.setItem('user', JSON.stringify(user));
     setUser(user)
   }
 

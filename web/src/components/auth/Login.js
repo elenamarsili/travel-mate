@@ -1,71 +1,46 @@
-import { useContext, useState } from "react"
-import { useHistory } from "react-router-dom"
+import { useContext } from "react"
+import { Link, useHistory } from "react-router-dom"
 import { AuthContext } from "../../contexts/AuthContext"
 import service from "../../services/users-service"
+import { useForm } from "react-hook-form";
 import './Login.css';
 
 function Login() {
   const history = useHistory()
   const auth = useContext(AuthContext)
 
-  const [data, setData] = useState({
-    email: '',
-    password: ''
-  })
-
-  const [error, setError] = useState()
-
-  function handleChange(ev) {
-    setData({
-      ...data,
-      [ev.target.name]: ev.target.value
-    })
-  }
-
-  function handleSubmit(ev) {
-    ev.preventDefault()
-
+  const { register, handleSubmit, setError, formState: { errors } } = useForm({ mode: 'all' });
+  const onLoginFormSubmit = data => {
     service.login(data.email, data.password)
-      .then((user) => {
+      .then(user => {
         auth.login(user)
-        history.push("/")
+        history.push('/')
       })
-      .catch((error) => {
-        const message = error.response?.data.message || error.message
-        setError(message)
+      .catch(error => {
+        const { message, errors } = error.response?.data || error;
+        if (errors) {
+          Object.keys(errors).forEach(input => {
+            setError(input, { type: 'manual', message: errors[input] });
+          })
+        } else {
+          setError('email', { type: 'manual', message: message });
+        }
       })
-  }
-
-
-  function handleSubmitGoogle(ev) {
-    ev.preventDefault()
-
-    service.loginWithGoogle()
-      .then((user) => {
-        auth.login(user)
-        history.push("/")
-      })
-      .catch(() => {
-        setError("Email or password are incorrect")
-      })
-  }
+  };
 
    return (
     <div className="container logged-out text-center">
         <div className="margin-0 row justify-content-center">             
             <div className="bg-login col-9 mt-5 py-5 m-2">
-                <div className="d-grid gap-2 mt-5 mb-2">
-                    <a href={'http://localhost:3001/api/authenticate/google'} className="btn bg-app-bg mb-2 login-btn rounded-pill"><i className="fa fa-google me-2"></i>Sign In with Google</a>   
+                {/* <div className="d-grid gap-2 mt-5 mb-2">
+                    <a href={`${process.env.REACT_APP_API_BASE_URL}/authenticate/google`} role="button" className="btn bg-app-bg mb-2 login-btn rounded-pill"><i className="fa fa-google me-2"></i>Sign In with Google</a>   
                 </div>
-                <p className="login-text text-center">OR</p>
-                {error && <div className="mt-1 alert">{error}</div>} 
-                <form  onSubmit={handleSubmit}>
+                <p className="login-text text-center">OR</p> */}
+                {errors.email?.type === "manual" && <div className="mt-1 alert">{errors.email.message}</div>} 
+                <form  className="mt-5 pt-5" onSubmit={handleSubmit(onLoginFormSubmit)}>
                     <div className="input-group mb-2">
-                        <input 
-                            name="email" 
-                            type="text" 
-                            onChange={handleChange} 
-                            value={data.email} 
+                        <input  
+                            type="email" {...register("email", { required: 'Email is required' })}
                             className="custom-form-control form-control input-border py-2 ps-4" 
                             placeholder="user@example.org" 
                             aria-label="User email" />
@@ -73,10 +48,7 @@ function Login() {
 
                     <div className="input-group mb-2">
                         <input
-                            name="password"
-                            type="password"
-                            onChange={handleChange}
-                            value={data.password}  
+                            type="password" {...register("password", { required: 'Password is required' })}
                             className="custom-form-control form-control input-border py-2 ps-4" 
                             placeholder="Password" 
                             aria-label="User password" />
@@ -87,7 +59,7 @@ function Login() {
                     </div>
                 </form>
                 <div className="mb-3 mt-2">
-                    <p className="login-text">Don't have an account?<a className="link" href="/register">Sign Up</a></p>
+                    <p className="login-text">Don't have an account?<Link className="link" to="/register">Sign Up</Link></p>
                 </div>
             </div>
         </div>

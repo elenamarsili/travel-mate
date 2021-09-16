@@ -1,0 +1,30 @@
+.profile-picture {
+    height: 45vh;
+    width: 100vw;
+}
+
+.profile-title{
+    color: #2176AE;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.profile-subtitle{
+    color: #FFCB21;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.profile-text{
+    color: #828282;
+    font-size: 18px;
+}
+
+.update-btn{
+    background-color: #FFCB21;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    width: 50%;
+}
+
