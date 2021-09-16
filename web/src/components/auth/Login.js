@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { AuthContext } from "../../contexts/AuthContext"
 import service from "../../services/users-service"
@@ -32,12 +32,12 @@ function Login() {
     <div className="container logged-out text-center">
         <div className="margin-0 row justify-content-center">             
             <div className="bg-login col-9 mt-5 py-5 m-2">
-                <div className="d-grid gap-2 mt-5 mb-2">
-                    <a href="http://localhost:3001/api/authenticate/google" role="button" className="btn bg-app-bg mb-2 login-btn rounded-pill"><i className="fa fa-google me-2"></i>Sign In with Google</a>   
+                {/* <div className="d-grid gap-2 mt-5 mb-2">
+                    <a href={`${process.env.REACT_APP_API_BASE_URL}/authenticate/google`} role="button" className="btn bg-app-bg mb-2 login-btn rounded-pill"><i className="fa fa-google me-2"></i>Sign In with Google</a>   
                 </div>
-                <p className="login-text text-center">OR</p>
+                <p className="login-text text-center">OR</p> */}
                 {errors.email?.type === "manual" && <div className="mt-1 alert">{errors.email.message}</div>} 
-                <form  onSubmit={handleSubmit(onLoginFormSubmit)}>
+                <form  className="mt-5 pt-5" onSubmit={handleSubmit(onLoginFormSubmit)}>
                     <div className="input-group mb-2">
                         <input  
                             type="email" {...register("email", { required: 'Email is required' })}

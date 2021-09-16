@@ -8,20 +8,21 @@ const activate = (id) => http.get(`/users/${id}/activate`, {id})
 const profile = () => http.get('/profile')
 const profileDelete = () => http.delete('/profile')
 const reccommendations = () => http.get('/')
-const like = (liker, liked) => http.post(`/user/:id/like`, {liker, liked})
+const like = (userId) => http.post(`/users/${userId}/like`)
 const chats = (id, users, messages) => http.get(`/chats`, { id, users, messages})
 const messageCreate = (message, chatId) => http.post(`/chats/${chatId}`, message)
-const messageList = (chatId) => http.get(`/chats/${chatId}`)
+const messageList = (id) => http.get(`/chats/${id}`)
 const profileUpdate = (user) => {
+  console.log(user.avatar)
   const data = new FormData()
-    data.append("avatar", user.avatar[0])
+    data.append("avatar", user.avatar)
     data.append("bio", user.bio)
     data.append("pronouns", user.pronouns)
     data.append("dateOfBirth", user.dateOfBirth)
     data.append("interests", user.interests)
     data.append("languages", user.languages)
 
-    return http.patch('/profile/update', data)
+    return http.patch('/profile', data)
 }
 
 const service = {

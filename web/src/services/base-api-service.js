@@ -11,7 +11,6 @@ http.interceptors.request.use(
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position)=> {
-            console.log(position)
             resolve([position.coords.latitude, position.coords.longitude])
           },
           (error) => {

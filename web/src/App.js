@@ -8,9 +8,8 @@ import ChatsList from './components/chats/chats-list/ChatsList';
 import About from './components/misc/About';
 import Home from './components/misc/HomeRouter';
 import UsersDetail from './components/users/users-detail/UsersDetail';
-/* import UsersForm from './components/users/users-form/UsersForm'; */
 import NavbarRouter from './components/misc/NavbarRouter';
-import UserForm2 from './components/users/users-form/UserForm2';
+import UserForm from './components/users/users-form/UsersForm';
 
 
 function App() {
@@ -26,7 +25,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/google/cb" component={GoogleCB} />
           <Route exact path="/register" component={Register} />
-          <PrivateRoute fullProfile={false} exact path="/profile/update" component={UserForm2} />
+          <PrivateRoute fullProfile={false} exact path="/profile/update" component={UserForm} />
           <PrivateRoute fullProfile={true} exact path="/profile" component={UsersDetail} />
           <PrivateRoute fullProfile={true} exact path="/chats" component={ChatsList} />
           <PrivateRoute fullProfile={true} exact path="/chats/:id" component={ChatDetail} />

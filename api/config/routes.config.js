@@ -14,7 +14,7 @@ router.get('/authenticate/google/cb', users.doLoginWithGoogle)
 router.get('/users/:id/activate', users.activate);
 
 router.get('/profile', secure.isAuthenticated, users.profile)
-router.patch('/profile/update', secure.isAuthenticated, upload.single('avatar'), users.update)
+router.patch('/profile', secure.isAuthenticated, upload.single('avatar'), users.update)
 router.delete('/profile', secure.isAuthenticated, users.delete)
 
 router.get('/', secure.isAuthenticated, secure.isUserCompleted, users.list)

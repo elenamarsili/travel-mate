@@ -55,7 +55,7 @@ module.exports.detail = (req, res, next) => {
           path: "messages",
           populate: {
             path: "sender",
-            select: "name"
+            select: "name content"
           }
         })
         .then((chat) => {

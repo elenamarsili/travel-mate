@@ -9,7 +9,7 @@ function GoogleCB() {
   const auth = useContext(AuthContext);
   
   useEffect(() => {
-    service.getUser('me')
+    service.login()
       .then(user => {
         auth.login(user);
         history.push('/');

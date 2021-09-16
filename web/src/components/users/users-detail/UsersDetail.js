@@ -19,7 +19,7 @@ function UsersDetail() {
 
   return (
     <div className="container mt-1">
-      <img src={auth.user?.avatar} className="profile-picture" alt="profile-picture"/>
+      <img src={auth.user?.avatar} className="profile-picture" alt={auth.user?.name}/>
       <h1 className="mt-2 px-3 profile-title">{auth.user?.name}, {auth.user?.pronouns}, {getAge()}yo</h1> 
       <h2 className="px-3 profile-subtitle">I speak: {auth.user?.languages.join(", ")}</h2>
       <h2 className="px-3 profile-subtitle">I like: {auth.user?.interests.join(", ")}</h2>

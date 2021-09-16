@@ -6,11 +6,11 @@ import './ChatItem.css';
 
 function ChatItem({id, users, messages}) {
     const auth = useContext(AuthContext)
-    const sortedMessages = messages.sort((a, b) => b.date - a.date)
+    const sortedMessages = messages.sort((a, b) => a.createdAt - b.createdAt)
     console.log(sortedMessages)
 
-    const otherUser = users.find((user) => user.id != auth.user.id);
-    const dateFromNow = moment(messages[0].createdAt).fromNow()
+    const otherUser = users.find((user) => user.id !== auth.user.id);
+    const dateFromNow = moment(sortedMessages[0].createdAt).fromNow()
 
     return (
             <div className="ChatItem">
@@ -23,7 +23,7 @@ function ChatItem({id, users, messages}) {
                 />
                 <div className="ChatText mx-3">
                     <h5 className="ChatName">{otherUser.name}</h5>
-                    <p className="mb-2"><small>{moment(messages[0].createdAt).fromNow()}</small></p>
+                    <p className="mb-2"><small>{dateFromNow}</small></p>
                     <p>{messages[0].content}</p>  
                 </div>
                 <Link to={`chats/${id}`} className="stretched-link"/> 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import service from "../../../services/users-service"
 import ChatItem from "../chat-items/ChatItem";
 import './ChatLIst.css';
@@ -6,7 +6,6 @@ import './ChatLIst.css';
 function ChatsList() {
 
   const [state, setState] = useState({ chats: [], isLoading: true});
-  const [fetch, handleFetch] = useState(false);
   
     useEffect(() => {
       let isMounted = true;
@@ -21,7 +20,7 @@ function ChatsList() {
           console.error(error);
         });
       return () => isMounted = false
-    }, [fetch]);
+    }, []);
 
     const { chats, isLoading } = state;
 

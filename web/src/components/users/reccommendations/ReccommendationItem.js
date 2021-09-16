@@ -1,26 +1,21 @@
-import { useContext, useHistory } from "react"
-import { AuthContext } from "../../../contexts/AuthContext"
+import { useHistory } from "react-router-dom"
 import service from "../../../services/users-service"
 import './ReccommendationItem.css';
 
-function ReccommendationItem({name, pronouns, dateOfBirth, avatar, interests, languages, bio}) {
-/*     const history = useHistory()
-    const auth = useContext(AuthContext) */
+function ReccommendationItem({id, name, pronouns, dateOfBirth, avatar, interests, languages, bio, needRefresh, setNeedRefresh}) {
+    const history = useHistory();
 
-    const handleLike = (req, res, next) => {
-/*         service.like({
-                liker: auth.id,
-                liked: req.params.id
-            })
+    const handleLike = (id) => {
+        service.like(id)
             .then(() => {
-                history.push("/")
+                setNeedRefresh(!needRefresh)
             })
-            .catch(error => next(error)) */
+            .catch(error => console.error(error))
     } 
-    //como cojo el params id de esa reccomendacion
 
 
-    function getAge(dateString) {
+
+    function getAge() {
         var today = new Date();
         var birthDate = new Date(dateOfBirth);
         var age = today.getFullYear() - birthDate.getFullYear();
@@ -34,13 +29,13 @@ function ReccommendationItem({name, pronouns, dateOfBirth, avatar, interests, la
 
     return (
         <>
-            <img className="profile-picture" src={avatar}/>
+            <img className="profile-picture" src={avatar} alt={name}/>
             <h1 className="mt-1 px-3 profile-title">{name}, {pronouns}, {getAge()}yo</h1> 
             <h2 className="px-3 profile-subtitle">I speak: {languages.join(", ")}</h2>
             <h2 className="px-3 profile-subtitle">I like: {interests.join(", ")}</h2>
             <p className="px-3 profile-text">{bio}</p>
             <div className="d-flex btns">
-                <a aria-current="page" onClick={handleLike()} className="btn btn-yellow rounded-circle te"><i className="fa fa-heart-o" aria-hidden="true"></i></a>
+                <a aria-current="page" onClick={() => handleLike(id)} className="btn btn-yellow rounded-circle te"><i className="fa fa-heart-o" aria-hidden="true"></i></a>
                 <a aria-current="page" href="" className="btn btn-blue rounded-circle"><i className="fa fa-times" aria-hidden="true"></i></a> 
                 {/* //what to put in the href???? */}
             </div>

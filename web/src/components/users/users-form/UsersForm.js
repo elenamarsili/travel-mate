@@ -18,14 +18,14 @@ const validations = {
   },
   languages: (value) => {
     let message;
-    if (!value && !value.length) {
+    if (!value || value.length === 0) {
       message = 'Select at least one language';
     }
     return message;
   },
   interests: (value) => {
     let message;
-    if (!value && !value.length) {
+    if (!value || value.length < 2 || value.length > 5) {
       message = 'Select between 2 and 5 interests';
     }
     return message;
@@ -115,8 +115,12 @@ function UserForm(){
 
   function handleInputChange(ev) {
     const inputName = ev.target.name;
-    const value = inputName === "languages" || inputName === "interests" ? handleChangeForSelect(ev) : ev.target.value;
+    let value = inputName === "languages" || inputName === "interests" ? handleChangeForSelect(ev) : ev.target.value;
     error[inputName].validations = validations[inputName](ev.target.value);
+
+    if (ev.target.files) {
+      value = ev.target.files[0]
+    }
 
     setData({
         ...data,
@@ -133,15 +137,9 @@ const handleSubmit = (event) => {
     event.preventDefault();
 
     if (isFormValid()) {
-      service.profileUpdate({
-        avatar: event.target.avatar.value,
-        pronouns: event.target.pronouns.value,
-        dateOfBirth: event.target.dateOfBirth.value,
-        bio: event.target.bio.value,
-        languages: event.target.languages.value,
-        interests: event.target.interests.value,
-      })
-        .then(() => {
+      service.profileUpdate(data)
+        .then((user) => {
+          auth.login(user)
           history.push("/profile")
         })
         .catch(error => {

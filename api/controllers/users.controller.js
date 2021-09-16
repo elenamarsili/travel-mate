@@ -92,7 +92,6 @@ module.exports.logout = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
   const editedUser = {
-    name,
     avatar,
     dateOfBirth,
     bio,
@@ -104,6 +103,14 @@ module.exports.update = (req, res, next) => {
 
   if (req.file) {
     editedUser.avatar = req.file.path
+  }
+
+  if(editedUser.languages && !Array.isArray(editedUser.languges)) {
+    editedUser.languages = editedUser.languages.split(",")
+  }
+
+  if(editedUser.interests && !Array.isArray(editedUser.interests)) {
+    editedUser.interests = editedUser.interests.split(",")
   }
 
   Object.assign(req.user, editedUser)
