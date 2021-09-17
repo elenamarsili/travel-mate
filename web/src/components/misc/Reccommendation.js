@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import service from "../../services/users-service"
-import './HomeIn.css';
+import './Reccommendation.css';
 
-function HomeIn3() {
+function Reccommendation() {
 
     const [state, setState] = useState({reccommendation: undefined, isLoading: true});
     const [page, setPage] = useState(0)
@@ -62,4 +62,4 @@ function HomeIn3() {
     )
 }
 
-export default HomeIn3;
+export default Reccommendation;

@@ -1,9 +1,8 @@
 import { useContext } from "react"
 import { Redirect } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext"
-/* import HomeIn from "./HomeIn"; */
-import HomeIn3 from "./HomeIn3";
 import HomeOut from "./HomeOut";
+import Reccommendation from "./Reccommendation";
 
 function HomeRouter() {
     const auth = useContext(AuthContext)
@@ -12,7 +11,7 @@ function HomeRouter() {
     } else if (auth.user && !auth.user.isProfileCompleted) {
         return <Redirect to="/profile/update" />
     } else  {
-        return <HomeIn3 />
+        return <Reccommendation />
     }
 }
 export default HomeRouter;
