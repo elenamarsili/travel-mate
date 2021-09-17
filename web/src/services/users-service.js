@@ -7,10 +7,11 @@ const loginWithGoogle = () => http.get('/authenticate/google')
 const activate = (id) => http.get(`/users/${id}/activate`, {id})
 const profile = () => http.get('/profile')
 const profileDelete = () => http.delete('/profile')
-const reccommendations = () => http.get('/')
+/* const reccommendations = () => http.get('/') */
+const reccommendation = (page) => http.get('/reccommendation', {params: { page }})
 const like = (userId) => http.post(`/users/${userId}/like`)
 const chats = (id, users, messages) => http.get(`/chats`, { id, users, messages})
-const messageCreate = (message, chatId) => http.post(`/chats/${chatId}`, message)
+const messageCreate = (chatId, message) => http.post(`/chats/${chatId}`, message)
 const messageList = (id) => http.get(`/chats/${id}`)
 const profileUpdate = (user) => {
   console.log(user.avatar)
@@ -34,7 +35,7 @@ const service = {
   profile,
   profileUpdate,
   profileDelete,
-  reccommendations,
+  reccommendation,
   like,
   chats,
   messageCreate,

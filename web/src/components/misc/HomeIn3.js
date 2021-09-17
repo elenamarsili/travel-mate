@@ -2,46 +2,36 @@ import { useState, useEffect } from "react"
 import service from "../../services/users-service"
 import './HomeIn.css';
 
-function HomeIn() {
+function HomeIn3() {
 
-    const [reccommendation, setReccommendation] = useState();
-    const [isLoading, setIsLoading] = useState(true);
-    const [needRefresh, setNeedRefresh] = useState(false);
-    const [pagination, setPagination] = useState({ page: 0, moreResults: true })
+    const [state, setState] = useState({reccommendation: undefined, isLoading: true});
+    const [page, setPage] = useState(0)
  
     useEffect(() => {
-        service.reccommendation()
-            .then((reccommendations) => {
-                setReccommendation(reccommendation);
-                setIsLoading(false);
-            })
-            .catch(error => console.error(error))
-    }, [needRefresh])
-
-    useEffect(() => {
+        console.log("page:", page)
         let isMount = true;
-        if (pagination.moreResults) {
-            service.recommendation(pagination.page)
-                .then(recommendation => {
-                    if (isMount) {
-                        if (reccommendation) setReccommendation(recommendation)
-                        else setPagination({...pagination, moreResults: false })
+        service.reccommendation(page)
+            .then(reccommendation => {
+                if (isMount) {
+                    if (reccommendation) setState({reccommendation, isLoading:false})
+                    else {
+                        console.log("no quedan mas reccommendaciones")
+                        setPage(0)
+                        setState({...state, isLoading:false})
                     }
-                })
-                .catch(error => console.log(error))
-        }
+                }
+            })
+            .catch(error => console.log(error))
         return () => isMount = false;
-    }, [pagination])
+    }, [page])
 
     const handleLike = (id) => {
         service.like(id)
-            .then(() => {
-                setNeedRefresh(!needRefresh)
-            })
+            .then(() =>  setPage(page + 1))
             .catch(error => console.error(error))
     } 
 
-    function getAge() {
+    const getAge = () => {
         var today = new Date();
         var birthDate = new Date(reccommendation.dateOfBirth);
         var age = today.getFullYear() - birthDate.getFullYear();
@@ -52,21 +42,24 @@ function HomeIn() {
         return age;
     }
 
-    const handleNextPageClick = () => setPagination({...pagination, page: pagination.page + 1})
+    const handleNextPageClick = () => setPage(page + 1)
+    const { isLoading, reccommendation } = state;
 
-return (
-    <div className="container">
-        <img className="profile-picture" src={reccommendation.avatar} alt={reccommendation.name}/>
-        <h1 className="mt-1 px-3 profile-title">{reccommendation.name}, {reccommendation.pronouns}, {getAge()}yo</h1> 
-        <h2 className="px-3 profile-subtitle">I speak: {reccommendation.languages.join(", ")}</h2>
-        <h2 className="px-3 profile-subtitle">I like: {reccommendation.interests.join(", ")}</h2>
-        <p className="px-3 profile-text">{reccommendation.bio}</p>
-        <div className="d-flex btns">
-            <a aria-current="page" onClick={() => handleLike(reccommendation.id)} className="btn btn-yellow rounded-circle te"><i className="fa fa-heart-o" aria-hidden="true"></i></a>
-            <a aria-current="page" onClick={() => handleNextPageClick()} href="" className="btn btn-blue rounded-circle"><i className="fa fa-times" aria-hidden="true"></i></a>
+    if (isLoading) return  <i className="fa fa-gear fa-spin"></i>
+    else if (!reccommendation) return <p>Vaya ya te ha gustado todo el mundo!!</p>
+    else return (
+        <div className="container">
+            <img className="profile-picture" src={reccommendation.avatar} alt={reccommendation.name}/>
+            <h1 className="mt-1 px-3 profile-title">{reccommendation.name}, {reccommendation.pronouns}, {getAge()}yo</h1> 
+            <h2 className="px-3 profile-subtitle">I speak: {reccommendation.languages.join(", ")}</h2>
+            <h2 className="px-3 profile-subtitle">I like: {reccommendation.interests.join(", ")}</h2>
+            <p className="px-3 profile-text">{reccommendation.bio}</p>
+            <div className="d-flex btns">
+                <button aria-current="page" onClick={() => handleLike(reccommendation.id)} className="btn btn-yellow rounded-circle te"><i className="fa fa-heart-o" aria-hidden="true"></i></button>
+                <button aria-current="page" onClick={handleNextPageClick} className="btn btn-blue rounded-circle"><i className="fa fa-times" aria-hidden="true"></i></button>
+            </div>
         </div>
-    </div>
     )
 }
 
-export default HomeIn;
+export default HomeIn3;

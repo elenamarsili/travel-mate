@@ -10,8 +10,9 @@ function ChatDetails() {
   const auth = useContext(AuthContext)
   const { id } = useParams();
   const [chat, setChat] = useState();
-
-  /* const otherUser = chat.users.find((user) => user.id !== auth.user.id); */
+  const [fetch, setFetch] = useState(false)
+  
+  const updateChat = ()=> setFetch(!fetch)
 
   useEffect(() => {
     let isMounted = true;
@@ -21,16 +22,18 @@ function ChatDetails() {
           setChat(chat)
         }
       })
+      .catch(error => console.error(error))
     return () => isMounted = false;
-  }, [id]);
-
-  console.log(chat)
-
-  const { register, handleSubmit, setError, formState: { errors } } = useForm({ mode: 'all' });
+  }, [id, fetch]);
+  
+  const otherUser = chat?.users.find((user) => user.id !== auth.user.id); 
+  
+  const { register, handleSubmit, reset, setError, formState: { errors } } = useForm({ mode: 'all' });
   const onMessageCreate = message => {
-/*     service.messageCreate(message, id)
+    service.messageCreate(id, message)
       .then(() => {
-        history.push('chats/${chatId}')
+        reset()
+        updateChat()
       })
       .catch(error => {
         const { message, errors } = error.response?.data || error;
@@ -39,9 +42,9 @@ function ChatDetails() {
             setError(input, { type: 'manual', message: errors[input] });
           })
         } else {
-          setError('message', { type: 'manual', message: message });
+          setError('content', { type: 'manual', message: message });
         }
-      }) */
+      })
   };
 
   if (!chat) return <p>Loading messages...</p>
@@ -50,18 +53,18 @@ function ChatDetails() {
     <div className="chat-box">
       <div className="chat-header">
         <img 
-          src=""/* {otherUser.avatar} */
+          src={otherUser.avatar}
           className="ChatAvatar rounded-circle mx-2" 
-          alt="" /* {otherUser.name} */
+          alt={otherUser.name}
           width="64px"
           height="64px"/>
-        <h5 className="ChatName">{/* {otherUser.name} */}</h5>
+        <h5 className="ChatName">{otherUser.name}</h5>
       </div>        
       <div className="chat">
         <div className="ChatText">
           <div className="messages">  
-          {chat.messages.map((message, i) => (
-                <div key={i} className={message.sender.id === auth.user.id ? "message-mine" : "message-yours"}>
+          {chat.messages.map((message) => (
+                <div key={message.id} className={message.sender.id === auth.user.id ? "message-mine" : "message-yours"}>
                   <p>{message.content}</p>
                 </div>
               ))} 
@@ -71,9 +74,9 @@ function ChatDetails() {
         <form  className="message-form" onSubmit={handleSubmit(onMessageCreate)}>
           <div className="message-input input-group mb-2">
               <input  
-                  type="text" {...register("message")}
+                  type="text" {...register("content")}
                   className="custom-form-control form-control input-border py-2 ps-4" 
-                  aria-label="message" />
+              />
           </div>
           <div className="btn-div mx-3">
               <button type="submit" className="btn send-btn rounded-circle"><i className="fa fa-paper-plane" aria-hidden="true"></i></button>
