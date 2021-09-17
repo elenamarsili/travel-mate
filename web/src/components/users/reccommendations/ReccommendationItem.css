@@ -41,6 +41,11 @@
     font-size: 24px;
 }
 
+.fa-heart-o:hover{
+    color: #2176AE;
+    font-size: 24px;
+}
+
 .btn-blue{
     background-color: #2176AE;
     padding-top:11px;

@@ -123,6 +123,7 @@ module.exports.update = (req, res, next) => {
       next(error)
     })
 }
+
 module.exports.list = (req, res, next) => {
   Promise.all([
     Like.find({ liker: req.user.id }), 

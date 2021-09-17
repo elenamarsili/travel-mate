@@ -28,3 +28,11 @@
     width: 50%;
 }
 
+.update-btn:hover{
+    background-color: #2176AE;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    width: 50%;
+}
+

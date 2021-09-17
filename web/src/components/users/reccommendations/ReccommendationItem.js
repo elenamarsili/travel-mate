@@ -36,10 +36,10 @@ function ReccommendationItem({id, name, pronouns, dateOfBirth, avatar, interests
             <p className="px-3 profile-text">{bio}</p>
             <div className="d-flex btns">
                 <a aria-current="page" onClick={() => handleLike(id)} className="btn btn-yellow rounded-circle te"><i className="fa fa-heart-o" aria-hidden="true"></i></a>
-                <a aria-current="page" href="" className="btn btn-blue rounded-circle"><i className="fa fa-times" aria-hidden="true"></i></a> 
-                {/* //what to put in the href???? */}
-            </div>
-        </>
+             {/*    <a aria-current="page" href="" className="btn btn-blue rounded-circle"><i className="fa fa-times" aria-hidden="true"></i></a> 
+                {/* what to put in the href???? */} 
+             </div> 
+        </>        
     )
 
 }

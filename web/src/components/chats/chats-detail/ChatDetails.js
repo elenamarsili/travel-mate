@@ -11,6 +11,8 @@ function ChatDetails() {
   const { id } = useParams();
   const [chat, setChat] = useState();
 
+  /* const otherUser = chat.users.find((user) => user.id !== auth.user.id); */
+
   useEffect(() => {
     let isMounted = true;
     service.messageList(id)
@@ -48,64 +50,16 @@ function ChatDetails() {
     <div className="chat-box">
       <div className="chat-header">
         <img 
-          src=""
+          src=""/* {otherUser.avatar} */
           className="ChatAvatar rounded-circle mx-2" 
-          alt= ""
+          alt="" /* {otherUser.name} */
           width="64px"
           height="64px"/>
-        <h5 className="ChatName">Name</h5>
+        <h5 className="ChatName">{/* {otherUser.name} */}</h5>
       </div>        
       <div className="chat">
         <div className="ChatText">
-          <div className="messages">
-{/*             <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours">
-              <p>Whatever</p>
-            </div>
-            <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours">
-              <p>Whatever</p>
-            </div>
-            <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours">
-              <p>Whatever</p>
-            </div>
-            <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours">
-              <p>Whatever</p>
-            </div>
-            <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours">
-              <p>Whatever</p>
-            </div>
-            <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours">
-              <p>Whatever</p>
-            </div>
-            <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours">
-              <p>Whatever</p>
-            </div>
-            <div className="message-mine">
-              <p>Whatever</p>
-            </div>
-            <div className="message-yours"> */}
-            {/*   <p>Whatever</p>
-            </div> */}  
+          <div className="messages">  
           {chat.messages.map((message, i) => (
                 <div key={i} className={message.sender.id === auth.user.id ? "message-mine" : "message-yours"}>
                   <p>{message.content}</p>

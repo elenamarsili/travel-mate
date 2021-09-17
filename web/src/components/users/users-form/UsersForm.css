@@ -17,6 +17,15 @@
     font-weight: 700;
     width: 50%;
 }
+
+.update-btn:hover{
+  background-color: #FFCB21;
+  color: #2176AE;
+  font-size: 18px;
+  font-weight: 700;
+  width: 50%;
+}
+
 .update-btn:disabled,
 .update-btn[disabled]{
   border: 1px solid #828282;

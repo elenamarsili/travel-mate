@@ -19,10 +19,32 @@
     bottom: 10%;
 }
 
+.btn-signIn:hover{
+    background-color: #2176AE;
+    color: white;
+    border: 1px solid #2176AE;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    left: 20%;
+    bottom: 10%;
+}
+
 .btn-signUp{
     background-color: #FFCB21;
     border: 1px solid #FFCB21;
     color: white;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    right: 20%;
+    bottom: 10%;
+}
+
+.btn-signUp:hover{
+    background-color: #FFCB21;
+    border: 1px solid #FFCB21;
+    color: #2176AE;
     font-size: 18px;
     font-weight: bold;
     position: absolute;

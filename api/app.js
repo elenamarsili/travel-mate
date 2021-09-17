@@ -17,7 +17,6 @@ const app = express();
 app.use(logger('dev'));
 app.use((req, res, next) => {
   req.userLocation = req.headers["x-location"] ? req.headers["x-location"].split(',').reverse() : undefined;
-  console.log("the position of the user is", req.userLocation)
   next()
 })
 app.use(session.config);

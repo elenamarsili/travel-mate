@@ -65,6 +65,10 @@
   .fa-paper-plane {
       color: white;
   }
+  
+  .fa-paper-plane:hover{
+    color: #2176AE;
+}
 
   .send-btn {
       background-color: #FFCB21;

@@ -17,6 +17,12 @@
     font-weight: bold;
 }
 
+.link:hover{
+    text-decoration: underline;
+    color: #2176AE;
+    font-weight: bold;
+}
+
 .login-text{
     color: white;
     font-weight: bold; 
@@ -29,6 +35,12 @@
 .login-btn{
     background-color: #FFCB21;
     color: white;
+    font-weight: bold;
+}
+
+.login-btn:hover{
+    background-color: #FFCB21;
+    color: #2176AE;
     font-weight: bold;
 }
 
