@@ -153,6 +153,42 @@ module.exports.list = (req, res, next) => {
     .catch(error => next(error));
 }
 
+module.exports.reccommendation = (req, res, next) => {
+  const { page = 0 } = req.query;
+
+  Promise.all([
+    Like.find({ liker: req.user.id }), 
+    User.find({
+      isProfileCompleted: true, 
+      _id: { $ne: req.user.id },
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point" ,
+            coordinates: req.user.location.coordinates
+          },
+          $maxDistance: 30000,
+          $minDistance: 0,
+        }
+      },
+      languages: { $in: req.user.languages },
+      interests: { $in: req.user.interests }
+    })
+    .sort({_id: 1})
+  ])
+    .then(([likes, reccommendations]) => {
+      reccommendations = reccommendations.filter(r => !likes.some(l=> l.liked == r.id))
+      if (page >= 0) {
+        const reccommendation = reccommendations[page];
+        if (reccommendation) {
+          return res.json(reccommendation)
+        } 
+      } 
+      res.status(204).send()
+    })
+    .catch(error => next(error));
+}
+
 module.exports.profile = (req, res, next) => res.json(req.user)
 
 module.exports.delete = (req, res, next) => {

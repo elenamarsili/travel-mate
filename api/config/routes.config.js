@@ -17,7 +17,7 @@ router.get('/profile', secure.isAuthenticated, users.profile)
 router.patch('/profile', secure.isAuthenticated, upload.single('avatar'), users.update)
 router.delete('/profile', secure.isAuthenticated, users.delete)
 
-router.get('/', secure.isAuthenticated, secure.isUserCompleted, users.list)
+router.get('/reccommendation', secure.isAuthenticated, secure.isUserCompleted, users.reccommendation)
 
 router.post('/users/:id/like', secure.isAuthenticated, secure.isUserCompleted, users.like)
 
