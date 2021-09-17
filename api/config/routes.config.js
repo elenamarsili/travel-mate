@@ -25,4 +25,6 @@ router.get('/chats', secure.isAuthenticated, secure.isUserCompleted, chats.list)
 router.post('/chats/:id', secure.isAuthenticated, secure.isUserCompleted, chats.create)
 router.get('/chats/:id', secure.isAuthenticated, secure.isUserCompleted, chats.detail)
 
+router.use((req, res, next) => next(createError(404, 'Route not found')))
+
 module.exports = router
