@@ -10,9 +10,9 @@ function About() {
             <p className="paragraph">TravelMate will help you find peope with similar interests as yours and speaking the same language as you do, in the same area where you are currently located.</p>
             <p className="paragraph">This way is super-easy to make new friends and enjoy your travels much more!</p>
             <p className="paragraph par-bold">Join us and discover an all new way of making travle friends!</p>
-            <div className="container text-center">
-                <Link className="btn btn-signIn btn-primary rounded-pill" to="/login">Sign In</Link>
-                <Link className="btn btn-signUp btn-primary rounded-pill" to="/register">Sign Up</Link>
+            <div className="text-center btns-auth">
+                <Link className="btn btn-login btn-primary rounded-pill" to="/login">Sign In</Link>
+                <Link className="btn btn-register btn-primary rounded-pill" to="/register">Sign Up</Link>
             </div>
         </div>
     )

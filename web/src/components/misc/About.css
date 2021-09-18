@@ -14,8 +14,8 @@
 }
 
 .paragraph {
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 14px;
+    line-height: 18px;
     padding-left: 25px;
     padding-right: 25px; 
     color: #979797;
@@ -28,18 +28,26 @@
     color: #2176AE;
 }
 
-.btn-signIn{
+.btn-login{
     background-color: white;
     border: 1px solid #2176AE;
     color: #2176AE;
     font-size: 18px;
     font-weight: bold;
+    margin-right: 20px;
 }
 
-.btn-signUp{
+.btn-register{
     background-color: #FFCB21;
     border: 1px solid #FFCB21;
     color: white;
     font-size: 18px;
     font-weight: bold;
+    margin-left: 20px;
+}
+
+.btns-auth {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
