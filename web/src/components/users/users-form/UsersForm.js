@@ -10,8 +10,9 @@ import './UsersForm.css';
 
 const validations = {
   pronouns: (value) => {
+
     let message;
-    if (!value) {
+    if (!value || value.length === 0) {
       message = 'Select you preferred pronouns';
     }
     return message;
@@ -131,6 +132,11 @@ function UserForm(){
     }) ;
   };
 
+  
+  console.log(error.pronouns.validations) 
+  console.log(error.pronouns.touched)
+  console.log(error.pronouns.validations && error.pronouns.touched)
+
 const isFormValid = () => !Object.keys(error).some(key => error[key].validations !== undefined);
 
 const handleSubmit = (event) => {
@@ -181,7 +187,7 @@ const handleSubmit = (event) => {
                 return <option key={pron} value={pron}>{pron}</option>
                 })}
               </select>
-              {error.pronouns.validations && error.pronouns.touched && <div className="invalid-feedback">{error.pronouns.validations}</div>}
+              {error.pronouns.validations && error.pronouns.touched && <div className="c-danger">{error.pronouns.validations}</div>}
             </div>
 
             <div className="mb-1">
@@ -204,17 +210,17 @@ const handleSubmit = (event) => {
                 return <option name={language} key={language} value={language}>{language}</option>
                 })}
               </select>
-              {error.languages.validations && error.languages.touched && <div className="invalid-feedback">{error.languages.validations}</div>}
+              {error.languages.validations && error.languages.touched && <div >{error.languages.validations}</div>}
             </div>
 
             <div className="mb-1">
-              <label className="form-check-label" htmlFor="languages">My interests - choose between 2 and 5</label>
+              <label className="form-check-label" htmlFor="interests">My interests - choose between 2 and 5</label>
               <select className="form-select" aria-label="interests" id="interests" name="interests" onChange={(ev) => handleInputChange(ev)} onBlur={(ev) => handleBlur(ev)} multiple  size="3" >
                 { interests.map((interest) => {
                 return <option name={interest} key={interest} value={interest}>{interest}</option>
                 })}
               </select>
-              {error.interests.validations && error.interests.touched && <div className="invalid-feedback">{error.interests.validations}</div>}
+              {error.interests.validations && error.interests.touched && <div >{error.interests.validations}</div>}
             </div>
 
             <div className="mt-4 row justify-content-center">

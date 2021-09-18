@@ -46,11 +46,17 @@ function Reccommendation() {
     const { isLoading, reccommendation } = state;
 
     if (isLoading) return  <i className="fa fa-gear fa-spin"></i>
-    else if (!reccommendation) return <p>Vaya ya te ha gustado todo el mundo!!</p>
+    else if (!reccommendation) return (
+        <div className="container">
+            <img className="profile-picture" src="../../imgs/about.png" alt="friends"/>
+            <h1 className="mt-1 px-3 profile-title">Wow! You have already liked everybody!</h1> 
+            <p className="px-3 profile-text">Select more interests in order to have more reccommendations!</p>
+        </div>
+    )
     else return (
         <div className="container">
             <img className="profile-picture" src={reccommendation.avatar} alt={reccommendation.name}/>
-            <h1 className="mt-1 px-3 profile-title">{reccommendation.name}, {reccommendation.pronouns}, {getAge()}yo</h1> 
+            <h1 className="mt-3 px-3 profile-title">{reccommendation.name}, {reccommendation.pronouns}, {getAge()}yo</h1> 
             <h2 className="px-3 profile-subtitle">I speak: {reccommendation.languages.join(", ")}</h2>
             <h2 className="px-3 profile-subtitle">I like: {reccommendation.interests.join(", ")}</h2>
             <p className="px-3 profile-text">{reccommendation.bio}</p>

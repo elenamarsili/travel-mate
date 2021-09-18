@@ -7,9 +7,8 @@ import service from '../../services/users-service';
 function GoogleCB() {
   const history = useHistory();
   const auth = useContext(AuthContext);
-  
   useEffect(() => {
-    service.login()
+    service.profile()
       .then(user => {
         auth.login(user);
         history.push('/');

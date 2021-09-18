@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const User = require('../models/user.model');
 const Like = require('../models/like.model');
 const Chat = require('../models/chat.model');
+const Message = require('../models/message.model');
 const passport = require('passport');
 const mailer = require('../config/mailer.config');
 
@@ -136,7 +137,7 @@ module.exports.list = (req, res, next) => {
             type: "Point" ,
             coordinates: req.user.location.coordinates
           },
-          $maxDistance: 30000,
+          $maxDistance: 100000,
           $minDistance: 0,
         }
       },
@@ -167,7 +168,7 @@ module.exports.reccommendation = (req, res, next) => {
             type: "Point" ,
             coordinates: req.user.location.coordinates
           },
-          $maxDistance: 30000,
+          $maxDistance: 100000,
           $minDistance: 0,
         }
       },
@@ -214,7 +215,24 @@ module.exports.like = (req, res, next) => {
         next(createError(403, 'you already liked this user'))
       } else if (likedByOther) {
         return Chat.create({users: [req.params.id, req.user.id]})
-          .then(chat => res.json(chat))
+          .then(chat => {
+            /* Chat.findOne({_id: chat.id})
+              .then((chat) => {
+                if (chat) {
+                  const message = new Message({
+                    chat: chat._id,
+                    sender: req.user.id,
+                    content: "This is a match! Start writing to your new friend",
+                    isRead: false        
+                  })
+                  return message.save()
+                    .then(m => res.json(m))
+                } else {
+                  next(createError(404, "chat not found"))
+                }
+              }) */
+            res.json(chat)
+          })
           .catch(error => next(error))
       } else {
         res.status(204).send()

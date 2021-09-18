@@ -7,7 +7,7 @@ const loginWithGoogle = () => http.get('/authenticate/google')
 const activate = (id) => http.get(`/users/${id}/activate`, {id})
 const profile = () => http.get('/profile')
 const profileDelete = () => http.delete('/profile')
-/* const reccommendations = () => http.get('/') */
+
 const reccommendation = (page) => http.get('/reccommendation', {params: { page }})
 const like = (userId) => http.post(`/users/${userId}/like`)
 const chats = (id, users, messages) => http.get(`/chats`, { id, users, messages})

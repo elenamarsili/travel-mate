@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from './components/guards/PrivateRoute';
-/* import GoogleCB from './components/auth/GoogleCB'; */
+import GoogleCB from './components/auth/GoogleCB';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ChatDetail from './components/chats/chats-detail/ChatDetails';
@@ -10,7 +10,6 @@ import Home from './components/misc/HomeRouter';
 import UsersDetail from './components/users/users-detail/UsersDetail';
 import NavbarRouter from './components/misc/NavbarRouter';
 import UserForm from './components/users/users-form/UsersForm';
-
 
 function App() {
 
@@ -23,7 +22,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <Route exact path="/login" component={Login} />
-          {/* <Route exact path="/google/cb" component={GoogleCB} /> */}
+          <Route exact path="/google/cb" component={GoogleCB} /> 
           <Route exact path="/register" component={Register} />
           <PrivateRoute fullProfile={false} exact path="/profile/update" component={UserForm} />
           <PrivateRoute fullProfile={true} exact path="/profile" component={UsersDetail} />

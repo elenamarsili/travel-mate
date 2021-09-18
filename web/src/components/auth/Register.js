@@ -28,11 +28,11 @@ function Register() {
     <div className="container logged-out text-center">
         <div className="margin-0 row justify-content-center">             
             <div className="bg-login col-9 mt-5 py-5 m-2">
-           {/*      <div className="d-grid gap-2 mt-5 mb-2">
-                    <Link to={`${process.env.REACT_APP_API_BASE_URL}/authenticate/google`} className="btn bg-app-bg mb-2 login-btn rounded-pill"><i className="fa fa-google me-2"></i>Sign In with Google</Link>   
+              <div className="d-grid gap-2 mt-5 mb-2">
+                    <a href={`${process.env.REACT_APP_API_BASE_URL}/authenticate/google`} className="btn bg-app-bg mb-2 login-btn rounded-pill"><i className="fa fa-google me-2"></i>Sign In with Google</a>   
                 </div>
-                <p className="login-text text-center">OR</p> */}
-                <form  className="mt-5 pt-4" onSubmit={handleSubmit(onRegisterFormSubmit)}>
+                <p className="login-text text-center">OR</p> 
+                <form  className="mt-2" onSubmit={handleSubmit(onRegisterFormSubmit)}>
                 <div className="input-group mb-2">
                         <input 
                             name="name" 
