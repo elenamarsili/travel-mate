@@ -62,7 +62,7 @@ function ChatDetails() {
       </div>        
       <div className="chat">
         <div className="ChatText">
-          <div className="messages">  
+          <div className="messages px-2">  
           {chat.messages.map((message) => (
                 <div key={message.id} className={message.sender.id === auth.user.id ? "message-mine" : "message-yours"}>
                   <p>{message.content}</p>
@@ -71,7 +71,7 @@ function ChatDetails() {
           </div>
         </div>
         <div className="new-message">
-        <form  className="message-form" onSubmit={handleSubmit(onMessageCreate)}>
+        <form  className="message-form sticky" onSubmit={handleSubmit(onMessageCreate)}>
           <div className="message-input input-group mb-2">
               <input  
                   type="text" {...register("content")}

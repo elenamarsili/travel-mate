@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;
+  align-content: center;
+  margin: 0px !important;
 }
 
 .ChatAvatar {
@@ -19,10 +21,21 @@
   color:#2176AE;
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 0px;
 }
 
 .ChatDate {
-  text-align: right;
+  text-align: left;
+  color: #FFCB21;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.ChatDate-grey {
+  text-align: left;
+  color: #828282;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 .ChatTitle {
@@ -30,4 +43,12 @@
   flex-direction: row;
   flex-wrap: no-wrap;
   justify-content: space-around;
+}
+
+.bg-darker {
+  background-color: #eaf2f7;
+}
+
+.message {
+  color: #6d6b6b;
 }

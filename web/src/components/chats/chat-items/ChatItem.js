@@ -12,18 +12,18 @@ function ChatItem({id, users, messages}) {
     const date = lastMessage ? moment(lastMessage.createdAt).fromNow() : undefined
 
     return (
-            <div className="ChatItem">
+            <div className={lastMessage.isRead === true ? "ChatItem bg-white" : "ChatItem bg-darker"}>
                 <img 
                     src={otherUser.avatar}
-                    className="ChatAvatar rounded-circle mx-2" 
+                    className="ChatAvatar rounded-circle mx-2 mt-3" 
                     alt= {otherUser.name}
                     width="64px"
                     height="64px"
                 />
-                <div className="ChatText mx-3">
+                <div className="ChatText mx-3 mt-2">
                     <h5 className="ChatName">{otherUser.name}</h5>
-                    <p className="mb-2"><small>{date}</small></p>
-                    <p>{lastMessage?.content.substring(0, 20)}...</p>  
+                    <p className={lastMessage.isRead === true ? "ChatDate" : "ChatDate-grey"}><small>{date}</small></p>
+                    <p className="message">{lastMessage?.content.substring(0, 20)}...</p>
                 </div>
                 <Link to={`chats/${id}`} className="stretched-link"/> 
             </div>

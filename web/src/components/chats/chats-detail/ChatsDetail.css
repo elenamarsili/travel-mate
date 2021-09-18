@@ -2,15 +2,16 @@
     height:100vh;
 }
 .chat {
-    height: 100vh;
+    height: 80vh;
     width: 100vw; 
-    overflow-y: scroll;
     border-bottom: 1px solid lightgray;
+    position: relative;
 }
 
 .messages {
     width: 100vw; 
     height: 80vh;
+    overflow-y: scroll;
 }
 
 .message-mine {

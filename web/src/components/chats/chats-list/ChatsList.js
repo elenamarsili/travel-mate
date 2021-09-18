@@ -30,13 +30,11 @@ function ChatsList() {
                 {isLoading ? (<i className="fa fa-gear fa-spin"></i>) : (
                     <div className="row mb-2">
                       <div className="col">
-                        <ul className="list-group">
                           {chats.map(chat => (
-                              <li key={chat.id} className="list-group-item list-group-item-action">
+                              <div key={chat.id} className="list-group-item list-group-item-action px-0 py-0">
                                 <ChatItem {...chat}/>
-                              </li>
+                              </div>
                           ))}
-                        </ul>
                       </div>
                     </div>
                 )}
