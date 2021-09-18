@@ -151,8 +151,8 @@ userSchema.methods.checkValidProfile = function() {
     if (!this.languages || this.languages?.length < 1) {
         errors.languages = 'Select at least one language'
     }
-    if (!this.interests || this.interests?.length <2 || this.interests?.length>5 ) {
-        errors.interests = 'Select between 2 and 5 interests'
+    if (!this.interests || this.interests?.length <1) {
+        errors.interests = 'elect at least one  interest'
     }
     if (!this.pronouns || this.pronouns.length < 1) {
         errors.pronouns = 'Select you preferred pronouns'

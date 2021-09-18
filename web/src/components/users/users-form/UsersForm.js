@@ -26,8 +26,8 @@ const validations = {
   },
   interests: (value) => {
     let message;
-    if (!value || value.length < 2 || value.length > 5) {
-      message = 'Select between 2 and 5 interests';
+    if (!value || value.length === 0) {
+      message = 'Select at least one interest';
     }
     return message;
   },
@@ -132,11 +132,6 @@ function UserForm(){
     }) ;
   };
 
-  
-  console.log(error.pronouns.validations) 
-  console.log(error.pronouns.touched)
-  console.log(error.pronouns.validations && error.pronouns.touched)
-
 const isFormValid = () => !Object.keys(error).some(key => error[key].validations !== undefined);
 
 const handleSubmit = (event) => {
@@ -176,7 +171,7 @@ const handleSubmit = (event) => {
             <div className="form-group">
               <label className="form-check-label" htmlFor="avatar">My Profile Picture</label>
               <input type="file" name="avatar" className="form-control-file" id="avatar" onChange={(ev) => handleInputChange(ev)} onBlur={(ev) => handleBlur(ev)} />
-              {error.avatar.validations && error.avatar.touched && <div className="invalid-feedback">{error.avatar.validations}</div>}
+              {error.avatar.validations && error.avatar.touched && <div className="error-alert-custom">{error.avatar.validations}</div>}
             </div>
 
             <div className="mb-1">
@@ -187,20 +182,20 @@ const handleSubmit = (event) => {
                 return <option key={pron} value={pron}>{pron}</option>
                 })}
               </select>
-              {error.pronouns.validations && error.pronouns.touched && <div className="c-danger">{error.pronouns.validations}</div>}
+              {error.pronouns.validations && error.pronouns.touched && <div className="error-alert-custom">{error.pronouns.validations}</div>}
             </div>
 
             <div className="mb-1">
               <label className="form-check-label" htmlFor="dateOfBirth">Date of Birth</label>
               <input name="dateOfBirth" type="date" className={`form-control ${error.dateOfBirth.validations && error.dateOfBirth.touched ? 'is-invalid' : ''}`} value={data.dateOfBirth} onChange={(event) => handleInputChange(event)} onBlur={(event) => handleBlur(event)} />
-              {error.dateOfBirth.validations && error.dateOfBirth.touched && <div className="invalid-feedback">{error.dateOfBirth.validations}</div>}
+              {error.dateOfBirth.validations && error.dateOfBirth.touched && <div className="error-alert-custom">{error.dateOfBirth.validations}</div>}
             </div>
 
             <div className="mb-1">
               <label className="form-check-label" htmlFor="bio">About me</label>
               <textarea name="bio" type="text-area" className={`form-control ${error.bio.validations && error.bio.touched ? 'is-invalid' : ''}`} rows="2" maxLength="200" value={data.bio}
               onChange={(event) => handleInputChange(event)} onBlur={(event) => handleBlur(event)} />
-              {error.bio.validations && error.bio.touched && <div className="invalid-feedback">{error.bio.validations}</div>}
+              {error.bio.validations && error.bio.touched && <div className="error-alert-custom">{error.bio.validations}</div>}
             </div>
 
             <div className="mb-1">
@@ -210,17 +205,17 @@ const handleSubmit = (event) => {
                 return <option name={language} key={language} value={language}>{language}</option>
                 })}
               </select>
-              {error.languages.validations && error.languages.touched && <div >{error.languages.validations}</div>}
+              {error.languages.validations && error.languages.touched && <div className="error-alert-custom">{error.languages.validations}</div>}
             </div>
 
             <div className="mb-1">
-              <label className="form-check-label" htmlFor="interests">My interests - choose between 2 and 5</label>
+              <label className="form-check-label" htmlFor="interests">My interests - choose at least one</label>
               <select className="form-select" aria-label="interests" id="interests" name="interests" onChange={(ev) => handleInputChange(ev)} onBlur={(ev) => handleBlur(ev)} multiple  size="3" >
                 { interests.map((interest) => {
                 return <option name={interest} key={interest} value={interest}>{interest}</option>
                 })}
               </select>
-              {error.interests.validations && error.interests.touched && <div >{error.interests.validations}</div>}
+              {error.interests.validations && error.interests.touched && <div className="error-alert-custom">{error.interests.validations}</div>}
             </div>
 
             <div className="mt-4 row justify-content-center">

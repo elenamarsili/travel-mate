@@ -48,8 +48,8 @@ function Reccommendation() {
     if (isLoading) return  <i className="fa fa-gear fa-spin"></i>
     else if (!reccommendation) return (
         <div className="container">
-            <img className="profile-picture" src="../../imgs/about.png" alt="friends"/>
-            <h1 className="mt-1 px-3 profile-title">Wow! You have already liked everybody!</h1> 
+            <img className="profile-picture" src="https://res.cloudinary.com/iron-travelmate/image/upload/v1631963836/ih-remote-test/about_vomgga.png" alt="friends"/>
+            <h1 className="mt-3 px-3 profile-title">Wow! You have already liked everybody!</h1> 
             <p className="px-3 profile-text">Select more interests in order to have more reccommendations!</p>
         </div>
     )

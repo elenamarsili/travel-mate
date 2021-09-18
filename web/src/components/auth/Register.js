@@ -40,27 +40,28 @@ function Register() {
                             className="custom-form-control form-control input-border py-2 ps-4" 
                             placeholder="Your name" 
                             aria-label="User name" />
-                        { errors.name && <small style={{color: 'red'}}>{errors.name.message}</small>}
+                        
                     </div>
-
+                    { errors.name && <div style={{color: 'red'}}>{errors.name.message}</div>}
+                    
                     <div className="input-group mb-2">
                         <input 
                             type="email" {...register("email", { required: 'Email is required' })}
                             className="custom-form-control form-control input-border py-2 ps-4" 
                             placeholder="user@example.org" 
-                            aria-label="User email" />
-                        { errors.email && <small style={{color: 'red'}}>{errors.email.message}</small>}
+                            aria-label="User email" />    
                     </div>
-
+                    { errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
+                    
                     <div className="input-group mb-2">
                         <input
                             type="password" {...register("password", { required: 'Password is required' })}
                             className="custom-form-control form-control input-border py-2 ps-4" 
                             placeholder="Password" 
                             aria-label="User password" />
-                        { errors.password && <small style={{color: 'red'}}>{errors.password.message}</small>}
-                    </div>
-
+                        </div>
+                    { errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
+                    
                     <div className="d-grid mt-3">
                         <button type="submit" className="btn login-btn rounded-pill" disabled={Object.keys(errors).length !== 0}>Sign Up</button>
                     </div>
